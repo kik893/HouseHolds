@@ -1,0 +1,48 @@
+{% block content %}
+<div class="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Admin Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link box-link {% if request.endpoint == 'ahome' %}active{% endif %}" href="{{ url_for('ahome') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link box-link {% if request.endpoint == 'asearch' %}active{% endif %}" href="{{ url_for('asearch') }}">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link box-link {% if request.endpoint == 'asummary' %}active{% endif %}" href="{{ url_for('asummary') }}">Summary</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link box-link {% if request.endpoint == 'logout' %}active{% endif %}" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>  
+    
+    <style>
+        .navbar {
+            width: 100%;
+        }
+        .nav-link {
+            display: block; /* Makes the link fill the box */
+            padding: 10px 15px; /* Padding for the link */
+            border-radius: 5px; /* Rounded corners */
+            margin: 5px; /* Space between links */
+            transition: background-color 0.3s; /* Smooth transition for background color */
+        }
+        .nav-link:hover {
+            background-color: #e2e6ea; /* Light gray background on hover */
+        }
+        .nav-link.active {
+            background-color: #007bff; /* Blue background for active link */
+            color: white; /* White text for active link */
+        }
+    </style>    
+</div>    
+{% endblock %}

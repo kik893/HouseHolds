@@ -1,0 +1,12 @@
+
+{% extends 'layout1.html' %}
+{% block content %}
+    <div>
+        <h1>Delete Service {{ service.name }}?</h1>
+        <form action="{{ url_for('del_conf',id=service.id) }} " method="POST">
+            <input type="hidden" name="confirm" value="yes">
+            <input type="submit" value="Yes, delete service">
+            <a href="{{ url_for('ahome') }}">No, cancel</a>
+        </form>
+    </div>
+{% endblock %}

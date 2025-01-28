@@ -1,0 +1,184 @@
+{% extends 'layout1.html' %}
+{% block title %}
+    Admin Summary
+{% endblock %}
+{% block content %}
+<h2>Admin Summary Dashboard</h2>
+
+<div class="charts-container">
+    <!-- Pie Chart for Booking Status -->
+    <div class="chart-wrapper">
+        <canvas id="bookingStatusChart" width="300" height="300"></canvas>
+    </div>
+
+    <!-- Bar Chart for Approved Professionals -->
+    <div class="chart-wrapper">
+        <canvas id="approvedProfessionalsChart" width="300" height="300"></canvas>
+    </div>
+
+    <!-- Pie Chart for Flagged Users -->
+    <div class="chart-wrapper">
+        <canvas id="flaggedUsersChart" width="300" height="300"></canvas>
+    </div>
+
+    <!-- Column Chart for Service Requests -->
+    <div class="chart-wrapper">
+        <canvas id="serviceRequestsChart" width="300" height="300"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Booking Status Chart
+    const ctxBooking = document.getElementById('bookingStatusChart').getContext('2d');
+    const bookingStatusChart = new Chart(ctxBooking, {
+        type: 'pie',
+        data: {
+            labels: ['Accepted', 'Rejected', 'Canceled', 'Closed'],
+            datasets: [{
+                label: 'Booking Status',
+                data: [{{ booking_data.accepted }}, {{ booking_data.rejected }}, {{ booking_data.canceled }}, {{ booking_data.closed }}],
+                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#90EE90'],
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Booking Status Distribution'
+                }
+            }
+        }
+    });
+
+    // Approved Professionals Chart
+    const ctxApproved = document.getElementById('approvedProfessionalsChart').getContext('2d');
+    const approvedProfessionalsChart = new Chart(ctxApproved, {
+        type: 'bar',
+        data: {
+            labels: ['Approved Professionals'],
+            datasets: [{
+                label: 'Count',
+                data: [{{ approved_professionals_count }}],
+                backgroundColor: '#4CAF50',
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Number of Professionals'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Approved Professionals'
+                }
+            }
+        }
+    });
+
+    // Flagged Users Chart
+    const ctxFlagged = document.getElementById('flaggedUsersChart').getContext('2d');
+    const flaggedUsersChart = new Chart(ctxFlagged, {
+        type: 'pie',
+        data: {
+            labels: ['Flagged Professionals', 'Flagged Customers'],
+            datasets: [{
+                label: 'Flagged Users',
+                data: [{{ flagged_professionals_count }}, {{ flagged_customers_count }}],
+                backgroundColor: ['#FF6384', '#FFCE56'],
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Flagged Users Distribution'
+                }
+            }
+        }
+    });
+
+    // Service Requests Chart
+    const ctxRequests = document.getElementById('serviceRequestsChart').getContext('2d');
+    const serviceRequestsChart = new Chart(ctxRequests, {
+        type: 'bar',
+        data: {
+            labels: ['Total Requests'],
+            datasets: [{
+                label: 'Count',
+                data: [{{ service_requests_count }}],
+                backgroundColor: '#FFA500',
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Number of Requests'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Total Service Requests'
+                }
+            }
+        }
+    });
+</script>
+<style>
+    body {
+        background-color: #f4f4f4; /* Light background for contrast */
+        font-family: Arial, sans-serif; /* Consistent font */
+        margin: 0; /* Remove default margin */
+        padding: 20px; /* Add padding to the body */
+    }
+
+    h2 {
+        color: #333; /* Dark color for headings */
+        margin-bottom: 20px; /* Space below heading */
+    }
+
+    .charts-container {
+        display: flex;
+        justify-content: space-around; /* Space between the charts */
+        flex-wrap: wrap; /* Allow charts to wrap on smaller screens */
+        margin-top: 20px; /* Space above the charts */
+    }
+
+    .chart-wrapper {
+        width: 320px; /* Width of each chart */
+        height: 320px; /* Height of each chart */
+        margin: 10px; /* Margin around each chart */
+        background-color: white; /* White background for charts */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        padding: 10px; /* Padding inside the chart wrapper */
+    }
+
+    canvas {
+        max-width: 100%; /* Make sure charts are responsive */
+        max-height: 100%;
+    }
+</style>
+
+{% endblock %}

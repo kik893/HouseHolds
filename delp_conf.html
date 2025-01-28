@@ -1,0 +1,11 @@
+{% extends 'layout1.html' %}
+{% block content %}
+    <div>
+        <h1>Delete package {{ package.name }}?</h1>
+        <form action="{{ url_for('delp_conf',id=package.id) }} " method="POST">
+            <input type="hidden" name="confirm" value="yes">
+            <input type="submit" value="Yes, delete package">
+            <a href="{{ url_for('view_pac',id =package.id) }}">No, cancel</a>
+        </form>
+    </div>
+{% endblock %}

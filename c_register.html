@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Customer-registration
+{% endblock %}
+
+
+{% block content %}
+<div class="container float-end my-5">
+  <h2>Registration form</h2>
+
+
+
+<form action="/c_register" method="POST" >
+  <div class="row mb-3">
+    <label for="username" class="col-sm-2 col-form-label">Username</label>
+    <div class="col-sm-5">
+      <input type="text" class="form-control" name="username" id="username" required />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label for="name" class="col-sm-2 col-form-label">Name</label>
+    <div class="col-sm-5">
+      <input type="text" class="form-control" name="name" id="name" required />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label for="email" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-5">
+      <input type="email" class="form-control" name="email" id="email" required />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label for="password" class="col-sm-2 col-form-label" required>Password</label>
+    <div class="col-sm-5">
+      <input type="password" name="password" class="form-control" id="password" minlength="5" maxlength="32" required />
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label for="gender" class="col-sm-2 col-form-label">Gender:</label>
+    <div class="col-sm-5 ">
+      <select id="gender" name="gender" required id="gender" class="form-select" aria-label="Default select example">
+        <option value="" disabled selected>Select Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+  </div>
+  <div class="row mb-2 ">
+    <label for="phone" class="col-sm-2 col-form-label">Phone:</label>
+    <div class="col-sm-5">
+        <input type="integer" class="form-control" name="phone" id="phone" required />
+    </div>
+  </div>
+  <div class="row mb-2 ">
+    <label for="address" class="col-sm-2 col-form-label">Address:</label>
+    <div class="col-sm-5">
+        <input type="text" class="form-control" name="address" id="address" required />
+    </div>
+  </div>
+  <div class="row mb-2 ">
+    <label for="pincode" class="col-sm-2 col-form-label">Pincode:</label>
+    <div class="col-sm-5">
+        <input type="integer" class="form-control" name="pincode" id="pincode" required />
+    </div>
+  </div>
+    <br>
+    <div>
+      <button type="submit" class="btn btn-primary my-3" name="Go">Register</button>
+    </div>
+
+</form>
+</div>
+{% endblock %}

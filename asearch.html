@@ -1,0 +1,240 @@
+{% extends 'layout1.html' %}
+
+{% block title %}
+    Admin Multi-Search
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-color: rgb(222, 221, 205);
+        margin: 0;
+        padding: 20px;
+    }
+
+    h2, h3, h4 {
+        color: #333;
+    }
+
+    form {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center; /* Align items vertically center */
+        gap: 10px; /* Space between form elements */
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    select, input[type="text"] {
+        padding: 8px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        width: 100%;
+        max-width: 200px; /* Adjust width for better alignment */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    button {
+        padding: 5px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+    }
+
+    .table th, .table td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .table th {
+        background-color: rgb(101, 159, 101);
+        color: #fff;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: #f9f9f9; /* Zebra striping for table rows */
+    }
+
+    .table tr:hover {
+        background-color: #f1f1f1; /* Highlight row on hover */
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 10px; /* Space between buttons */
+    }
+</style>
+
+<div class="container">
+    <h2>Admin Multi-Search</h2>
+    <form method="POST" action="{{ url_for('asearch') }}" style="display: flex; align-items: center; gap: 10px;">
+        <div>
+            <label for="search_type">Search Type:</label>
+            <select id="search_type" name="search_type">
+                <option value="service">Service</option>
+                <option value="customer">Customer</option>
+                <option value="professional">Professional</option>
+                <option value="service_request">Service Request</option>
+            </select>
+        </div>
+        <div>
+            <label for="search_term">Search:</label>
+            <input type="text" id="search_term" name="search_term" placeholder="Enter search term">
+        </div>
+        <button type="submit" style="margin-left: 10px;">Search</button>
+    </form>
+
+    <h3>Search Results:</h3>
+
+    <h4>Services</h4>
+    {% if results.services %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Package Name</th>
+                <th>Base Price</th>
+                <th>Time required</th>
+                <th>Rating</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results.services %}
+                <tr>
+                    <td>
+                        
+                            {% for package in result.packages %}
+                                {{ package.name }} 
+                            {% endfor %}
+                        
+                    </td>
+
+                    <td>
+                        
+                            {% for package in result.packages %}
+                                {{ package.base_price }}
+                            {% endfor %}
+                        
+                    </td>
+                    <td>
+                        
+                            {% for package in result.packages %}
+                                {{ package.time_required }}
+                            {% endfor %}
+                        
+                    </td>
+                    <td>
+                        
+                            {% for package in result.packages %}
+                                {{ package.rating }}
+                            {% endfor %}
+                        
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No services found.</p>
+    {% endif %}
+
+    <h4>Customers</h4>
+    {% if results.customers %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in results.customers %}
+                <tr>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.address }}</td> <!-- Added location -->
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No customers found.</p>
+    {% endif %}
+
+    <h4>Professionals</h4>
+    {% if results.professionals %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Service Type</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for professional in results.professionals %}
+                <tr>
+                    <td>{{ professional.name }}</td>
+                    <td>{{ professional.email }}</td>
+                    <td>{{ professional.service_type }}</td>
+                    <td>{{ professional.location }}</td> <!-- Added location -->
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No professionals found.</p>
+    {% endif %}
+
+    <h4>Service Requests</h4>
+    {% if results.service_requests %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Service Name</th>
+                    <th>Professional Name</th>
+                    <th>Start Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in results.service_requests %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ request.package_name }}</td>
+                    <td>{{ request.professional_name }}</td>
+                    <td>{{ request.start_date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ request.view_status }}</td>
+                </tr>
+                {% endfor %} 
+            </tbody>
+        </table>
+    {% else %}
+        <p>No service requests found.</p>
+    {% endif %}      
+</div>
+{% endblock %}            

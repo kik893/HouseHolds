@@ -1,0 +1,88 @@
+{% extends 'layout1.html' %}
+
+{% block content %}
+  <!-- Table of Packages -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Package Name</th>
+        <th>Base Price</th>
+        <th>Time </th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for package in packages %}
+      <tr>
+        <td>{{ package.name }}</td>
+        <td>{{ package.base_price }}</td>
+        <td>{{ package.time_required }}</td>
+        <td>
+          <!-- Edit Button -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ package.id }}">
+            Edit
+          </button>
+
+          <!-- Delete Button -->
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ package.id }}">
+            Delete
+          </button>
+        </td>
+      </tr>
+
+      <!-- Edit Modal -->
+      <div class="modal fade" id="editModal{{ package.id }}" tabindex="-1" aria-labelledby="editModalLabel{{ package.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editModalLabel{{ package.id }}">Edit Package: {{ package.name }}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="{{ url_for('edit_pac', id=package.id) }}" method="POST">
+                <!-- Add your form fields for editing the package here -->
+                <div class="mb-3">
+                  <label for="packageName" class="form-label">Package Name</label>
+                  <input type="text" class="form-control" id="packagename" name="packagename" value="{{ package.name }}">
+                </div>
+                <div class="mb-3">
+                  <label for="basePrice" class="form-label">Base Price</label>
+                  <input type="text" class="form-control" id="baseprice" name="baseprice" value="{{ package.base_price }}">
+                </div>
+                <div class="mb-3">
+                  <label for="time" class="form-label">Time Required
+                  <input type="text" class="form-control" id="time" name="time" value="{{ package.time_required }}">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete Modal -->
+      <div class="modal fade" id="deleteModal{{ package.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ package.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel{{ package.id }}">Confirm Delete</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete the package "{{ package.name }}"?
+            </div>
+            <div class="modal-footer">
+              <form method="post" action="{{ url_for('delp_conf', id=service.id) }}">
+                  <button type="submit" class="btn btn-danger">Yes,Delete</button>
+              </form>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No,Cancel</button>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

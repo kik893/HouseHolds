@@ -1,0 +1,35 @@
+{% extends 'layout1.html' %}
+{% block title %}
+    create a service
+{% endblock %}
+{% block content %}
+    <h2>Create a service</h2>
+    <form  action="{{ url_for('cre_pac',id=service.id)  }}" method ="POST">  
+        <div class="row mb-3">
+            <label for="servicename" class="col-sm-2 col-form-label">servicename</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" name="servicename" id="servicename" required />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="service_type" class="col-sm-2 col-form-label">service_type</label>
+            <div class="col-sm-5">
+                <input  class="form-control" name="service_type" id="service_type" value="{{ service_type }}" required />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="baseprice" class="col-sm-2 col-form-label">baseprice</label>
+            <div class="col-sm-5">
+                <input type="integer" class="form-control" name="baseprice" id="baseprice" required />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="timerequired" class="col-sm-2 col-form-label">Time</label>
+            <div class="col-sm-5">
+                <input type="number" class="form-control" name="timerequired" id="timerequired" required />
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Create Service</button>
+    </form>
+{% endblock %}

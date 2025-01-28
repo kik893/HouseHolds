@@ -1,0 +1,99 @@
+{% extends 'layout2.html' %}
+
+{% block content %}
+<br>
+<br>
+
+<h3 class="text-center">Best Packages for {{service.name }}</h3>  
+<table>
+  <br>
+  <br>
+
+    <tr>
+      <th>Package Name</th>
+      <th>Base Price</th>
+      <th>Rating</th>
+      <th>Actions</th>
+    </tr>
+    {% for package in packages %}
+    <tr>
+      <td>{{ package.name }}</td>
+      <td>{{ package.base_price }}</td>
+      <td>{{ package.rating }}</td>
+      <td>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#professionalModal{{ package.id }}">
+          Book
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#packageModal{{ package.id }}">
+          View Details
+        </button>
+        
+        <!-- Modal for Selecting Professional -->
+        <div class="modal" id="professionalModal{{ package.id }}" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Select Professional for {{ package.name }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form method="post" action="{{ url_for('book_package', package_id=package.id) }}">
+                  <div class="mb-3">
+                    <label for="professional{{ package.id }}" class="form-label">Select Professional:</label>
+                    <select id="professional{{ package.id }}" name="professional_id" class="form-select" required>
+                      <option value="" disabled selected>Select Professional</option>
+                      {% for professional in profs %}
+                        <option value="{{ professional.id }}">{{ professional.name }} ({{ professional.rating }})</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="start_date{{ package.id }}" class="form-label">Start Date:</label>
+                    <input type="datetime-local" id="start_date{{ package.id }}" name="start_date" class="form-control" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Book</button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal for Package Details -->
+        <div class="modal" id="packageModal{{ package.id }}" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Package Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Package Name: {{ package.name }}</p>
+                <p>Type: {{ package.package_type }}</p>
+                <p>Base Price: {{ package.base_price }}</p>
+                <p>Rating: {{ package.rating }}</p>
+                <p>Time: {{ package.time_required }} hours</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+    <br>
+    <br>
+    
+{% endblock %}
+
+{% block style %}
+  <style>
+    table {
+        width: 100%;
+    }
+  </style>
+{% endblock %}

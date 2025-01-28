@@ -1,0 +1,28 @@
+{% extends 'layout2.html' %}
+
+{% block title %}
+   Request professional
+{% endblock %}
+
+{% block content %}
+    <h2>Request Another Professional</h2>
+    {% if package %}
+        <p>Current Booking ID: {{ package.id }}</p>
+
+        <form action="{{ url_for('request_prof', package_id=package.id) }}" method="POST">
+            <label for="professional_id">Select a Professional:</label>
+            <select name="professional_id" id="professional_id" required>
+                {% for professional in professionals %}
+                    <option value="{{ professional.id }}">{{ professional.name }}</option>
+                {% endfor %}
+            </select>
+            
+            <input type="hidden" name="package_id" value="{{ package.id }}">
+            <input type="hidden" name="customer_id" value="{{ service_request.customer_id }}">  <!-- Ensure service_request is not None -->
+            
+            <button type="submit">Submit Request</button>
+        </form>
+    {% else %}
+        <p>No package information available.</p>
+    {% endif %}
+{% endblock %}

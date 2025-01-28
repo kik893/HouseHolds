@@ -1,0 +1,46 @@
+{% extends 'layout1.html' %}
+{% block title %}
+New service
+{% endblock %}
+{% block content %}
+<div class="container float-end my-5">
+<h2>Create Service</h2>
+  
+  
+  
+  <form action="/cre_service" method="POST" enctype="multipart/form-data">  
+    <div class="row mb-3">
+        <label for="service_name" class="col-sm-2 col-form-label">Service Name</label>
+        <div class="col-sm-5">
+            <select id="service_name" name="service_name" required class="form-select" aria-label="Default select example">
+                <option value="" disabled selected>Select a Service</option>
+                <option value="cleaning">Cleaning</option>
+                <option value="plumbing">Plumbing</option>
+                <option value="AC Repair">AC Repair</option>
+                <option value="childCare">Child Care</option>
+                <option value="Painting">Painting </option>
+                <option value="Adult Care">Adult Care</option>
+                <option value="Cooking">Cooking</option>
+                <option value="Grocery Shopping">Grocery Shopping </option>
+                <option value="Laundry">Laundry</option>
+                <option value="Gardening">Gardening</option>
+                <option value="Pet Care">Pet Care</option>
+                <option value="vehicles">Vehicle</option>
+                <option value="Fencing">Fencing</option>
+                <option value="Electrical Repairs">Electrical Repairs</option>
+            </select> 
+        </div>           
+    </div>
+    <div class="row mb-3">
+        <label for="service_description" class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" name="service_description" id="service_description" rows="3" required />
+        </div>
+    </div>
+   
+    <div class="cneter"> 
+        <button type="submit" class="btn btn-primary">Create Service</button>
+    </div>     
+    </form>
+</div>
+{% endblock %}

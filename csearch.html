@@ -1,0 +1,126 @@
+{% extends 'layout2.html' %}
+
+{% block title %}
+    Search for Available Services and Packages
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-color: rgb(222, 221, 205);
+        margin: 0;
+        padding: 20px;
+    }
+
+    h2, h3, h4 {
+        color: #333;
+    }
+
+    form {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center; /* Align items vertically center */
+        gap: 10px; /* Space between form elements */
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    select, input[type="text"] {
+        padding: 8px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        width: 100%;
+        max-width: 200px; /* Adjust width for better alignment */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    button {
+        padding: 5px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+    }
+
+    .table th, .table td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .table th {
+        background-color: rgb(101, 159, 101);
+        color: #fff;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: #f9f9f9; /* Zebra striping for table rows */
+    }
+
+    .table tr:hover {
+        background-color: #f1f1f1; /* Highlight row on hover */
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 10px; /* Space between buttons */
+    }
+</style>
+<div class="container">
+    <h2>Search for Available Services </h2>
+    <form method="POST" action="{{ url_for('csearch') }}">
+        <input type="text" name="search_term" placeholder="Enter service name" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <h3>Available Services for "{{ search_term }}":</h3>
+    {% if services_with_packages %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Package Name</th>
+                    <th>Base Price</th>
+                    <th>Time required</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in services_with_packages %}
+                    {% for package in item.packages %}
+                    <tr>
+                        <!-- {% if loop.first %}
+                            <td rowspan="{{ item.packages|length }}">{{ item.service.name }}</td>
+                        {% endif %} -->
+                        <td>{{ package.name }}</td>
+                        <td>{{ package.base_price }}</td>
+                        <td>{{ package.time_required }}</td>
+                        <td>{{ package.rating }}</td>
+                    </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No available services or packages found.</p>
+    {% endif %}
+</div>
+{% endblock %}
+{% block style %}
+<style></style>
+    
+{% endblock %}

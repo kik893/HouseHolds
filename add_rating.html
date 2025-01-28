@@ -1,0 +1,45 @@
+{% extends 'layout2.html' %}
+
+{% block title %}
+    Rating
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Rate Your Service</h1>
+
+    <form action="{{ url_for('add_rating', service_request_id=service_request.id, package_id=package.id, professional_id=professional.id) }}" method="POST">
+        <div class="form-group">
+            <label for="package_name">Package Name:</label>
+            <input type="text" class="form-control" id="package_name" name="package_name" value="{{ package.name }}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="professional_name">Professional Name:</label>
+            <input type="text" class="form-control" id="professional_name" name="professional_name" value="{{ professional.name }}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="service_rating">Service Rating (1-5):</label>
+            <input type="number" class="form-control" id="service_rating" name="package_rating" min="1" max="5" required>
+        </div>
+
+        <div class="form-group">
+            <label for="professional_rating">Professional Rating (1-5):</label>
+            <input type="number" class="form-control" id="professional_rating" name="professional_rating" min="1" max="5" required>
+        </div>
+
+        <div class="form-group">
+            <label for="review_description">Review Description:</label>
+            <textarea class="form-control" id="review_description" name="review_description" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Rating</button>
+    </form>
+</div>
+
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

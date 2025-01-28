@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block title %}
+Register
+{% endblock %}
+{% block content %}
+    
+
+<h3>Who are you?</h3>
+
+<a href="{{ url_for('p_register') }}" class="btn">professional</a> 
+<a  href="{{ url_for('c_register') }}" class="btn">Customer</a>
+    
+
+    
+{% endblock %}
+
+<!-- {% block style %}
+<style>
+    .content {
+        background-color: #f9f9f9; 
+        padding: 20px;
+        border: 1px solid #ddd; /* light gray border */
+        border-radius: 10px; /* rounded corners */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
+        align-items: center;
+        }
+
+    .btn {
+        background-color: #4CAF50; /* green background */
+        color: #fff; /* white text */
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        }
+
+    .btn:hover {
+        background-color: #3e8e41; /* darker green on hover */
+        }
+</style>
+{% endblock %} -->

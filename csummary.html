@@ -1,0 +1,114 @@
+{% extends 'layout2.html' %}
+{% block title %}
+    Summary Statistics
+{% endblock %}
+{% block content %}
+<h2>Summary Statistics for {{ customer.name }}</h2>
+
+<div class="charts-container">
+    <!-- Pie Chart for Booking Status -->
+    <div class="chart-wrapper">
+        <canvas id="bookingStatusChart" width="300" height="300"></canvas>
+    </div>
+
+    <!-- Column Chart for Ratings -->
+    <div class="chart-wrapper">
+        <canvas id="ratingChart" width="300" height="300"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctxBooking = document.getElementById('bookingStatusChart').getContext('2d');
+    const bookingStatusChart = new Chart(ctxBooking, {
+        type: 'pie',
+        data: {
+            labels: ['Completed', 'Pending', 'Cancelled', 'Rejected'],
+            datasets: [{
+                label: 'Booking Status',
+                data: [{{ completed_count }}, {{ pending_count }}, {{ cancelled_count }}, {{ rejected_count }}],
+                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#FF5733'],
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Booking Status Distribution'
+                }
+            }
+        }
+    });
+
+    const ctxRating = document.getElementById('ratingChart').getContext('2d');
+    const ratingChart = new Chart(ctxRating, {
+        type: 'bar',
+        data: {
+            labels: ['Average Rating'],
+            datasets: [{
+                label: 'Rating',
+                data: [{{ average_rating }}],
+                backgroundColor: '#4CAF50',
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Rating'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Average Rating'
+                }
+            }
+        }
+    });
+</script>
+
+<style>
+    body {
+        background-color: #f4f4f4; /* Light background for contrast */
+        font-family: Arial, sans-serif; /* Consistent font */
+        margin: 0; /* Remove default margin */
+        padding: 20px; /* Add padding to the body */
+    }
+
+    h2 {
+        color: #333; /* Dark color for headings */
+        margin-bottom: 20px; /* Space below heading */
+    }
+
+    .charts-container {
+        display: flex;
+        justify-content: space-around; /* Space between the charts */
+        flex-wrap: wrap; /* Allow charts to wrap on smaller screens */
+        margin-top: 20px; /* Space above the charts */
+    }
+
+    .chart-wrapper {
+        width: 320px; /* Width of each chart */
+        height: 320px; /* Height of each chart */
+        margin: 10px; /* Margin around each chart */
+        background-color: white; /* White background for charts */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        padding: 10px; /* Padding inside the chart wrapper */
+    }
+
+    canvas {
+        max-width: 100%; /* Make sure charts are responsive */
+        max-height: 100%;
+    }
+
+{% endblock %}

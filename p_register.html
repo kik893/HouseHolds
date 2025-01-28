@@ -1,0 +1,124 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Professional-registration
+{% endblock %}
+
+
+{% block content %}
+<div class="container float-end my-5">
+  <h2>Registration form</h2>
+
+
+
+
+  <form action="/p_register" method="POST" enctype="multipart/form-data">
+    <div class="row mb-3">
+      <label for="username" class="col-sm-2 col-form-label">Username</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" name="username" id="username" required placeholder="Enter your username" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="name" class="col-sm-2 col-form-label">Name</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" name="name" id="name" required placeholder="Enter your full name" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="email" class="col-sm-2 col-form-label">Email</label>
+      <div class="col-sm-5">
+        <input type="email" class="form-control" name="email" id="email" required placeholder="Enter your email" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="password" class="col-sm-2 col-form-label">Password</label>
+      <div class="col-sm-5">
+        <input type="password" name="password" class="form-control" id="password" minlength="4" maxlength="32" required placeholder="Enter your password" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="gender" class="col-sm-2 col-form-label">Gender:</label>
+      <div class="col-sm-5">
+        <select id="gender" name="gender" required class="form-select">
+          <option value="" disabled selected>Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+    </div>
+  <div class="row mb-2 ">
+    <label for="phone" class="col-sm-2 col-form-label">Phone:</label>
+    <div class="col-sm-5">
+        <input type="tel" class="form-control" name="phone" id="phone" required required placeholder="Enter your phone number"/>
+    </div>
+  </div>
+  <div class="row mb-2 ">
+    <label for="location" class="col-sm-2 col-form-label">Location:</label>
+    <div class="col-sm-5">
+        <input type="text" class="form-control" name="location" id="location" required required placeholder="Enter your  location"/>
+    </div>
+  </div>
+  <div class="row mb-2 ">
+    <label for="pincode" class="col-sm-2 col-form-label">Pincode:</label>
+    <div class="col-sm-5">
+        <input type="number" class="form-control" name="pincode" id="pincode" required required placeholder="Enter pincode"/>
+    </div>
+  </div>
+  <div class="row mb-2 ">
+    <label for="experience" class="col-sm-2 col-form-label">Experience:</label>
+    <div class="col-sm-5">
+      <select id="experience" name="experience" required class="form-select" aria-label="Default select example">
+        <option value="" disabled selected>Select Experience</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+</div>
+<div class="row mb-2 ">
+    <label for="service" class="col-sm-2 col-form-label">Service:</label>
+    <div class="col-sm-5">
+      <select id="service" name="service" required class="form-select" aria-label="Default select example">
+        <option value="" disabled selected>Select a Service</option>
+        <option value="cleaning">Cleaning</option>
+        <option value="plumbing">Plumbing</option>
+        <option value="AC Repair">AC Repair</option>
+        <option value="childCare">Child Care</option>
+        <option value="Painting">Painting </option>
+        <option value="Adult Care">Adult Care</option>
+        <option value="Cooking">Cooking</option>
+        <option value="Grocery Shopping">Grocery Shopping </option>
+        <option value="Laundry">Laundry</option>
+        <option value="Gardening">Gardening</option>
+        <option value="Pet Care">Pet Care</option>
+        <option value="vehicles">Vehicle</option>
+        <option value="Fencing">Fencing</option>
+        <option value="Electrical Repairs">Electrical Repairs</option>
+      </select>
+    </div>
+</div>
+  
+  <div class="row mb-2 ">
+    Resume:
+    <div class="col-sm-5">
+      <a href={{ url_for('static', filename='/uploads/' ) }} type="file"  class="form-control" name="resume" id="resume" required /a>
+      <input type="file" class="btn btn-outline-dark" style="width:200px" name="resume" id="resume" /></a>
+    </div>
+    
+<!-- <div class="row mb-2">
+  <label for="resume" class="col-sm-2 col-form-label">Resume:</label>
+    <div class="col-sm-5">
+      <input type="file" class="form-control" name="resume" id="resume" required />
+    </div>
+</div> -->
+    <br>
+  <div class="'center">
+      <button type="submit" class="btn btn-primary my-3" name="Go">Register</button>
+  </div>
+  
+</form>
+
+{% endblock %}
